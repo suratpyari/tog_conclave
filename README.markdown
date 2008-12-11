@@ -26,7 +26,7 @@ Plugin requirements
 * [http://github.com/tog/tog/wikis/3rd-party-plugins-acts_as_taggable_on_steroids](http://github.com/tog/tog/wikis/3rd-party-plugins-acts_as_taggable_on_steroids)
 * [http://github.com/tog/tog/wikis/3rd-party-plugins-seo\_urls](http://github.com/tog/tog/wikis/3rd-party-plugins-seo\_urls)
 * google_geocode <pre>gem install google_geocode</pre>
-* ym4r_gm <pre>ruby script/plugin install svn://rubyforge.org/var/svn/ym4r/Plugins/GM/trunk/ym4r_gm</pre>
+* [http://github.com/ewildgoose/ym4r\_gm/tree/master](http://github.com/ewildgoose/ym4r\_gm/tree/master)
 
 Install
 -------
@@ -49,7 +49,7 @@ ruby script/generate migration install_tog_conclave
 <pre>
 class InstallTogConclave < ActiveRecord::Migration
   def self.up
-    migrate_plugin "tog_conclave", 3
+    migrate_plugin "tog_conclave", 4
   end
 
   def self.down

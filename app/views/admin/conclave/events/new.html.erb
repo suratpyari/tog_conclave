@@ -2,7 +2,7 @@
 <br />
 
 <%= error_messages_for :event %>
-<% form_for :event, :url => admin_conclave_events_path,  :html => {:id => "settings"} do |f| -%>
+<% form_for :event, :url => admin_conclave_events_path,  :html => {:multipart=>true, :id => "settings"} do |f| -%>
 
   <%= render :partial => 'form', :locals => { :f => f } %>
 

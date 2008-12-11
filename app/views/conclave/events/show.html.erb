@@ -1,5 +1,5 @@
 <div class="detail detail1">
-    <div class="image"></div>
+    <div class="image"><%= icon_for_event(@event, 'big')%></div>
     <div class="title"><%= @event.title -%></div>
     <div class="subtitle">
       <%= @event.opening_time %>
@@ -12,9 +12,8 @@
         <h2><span>More info</span></h2>
         <div class="portlet_content">
             <ul>
-                <li><%if @event.url%>Url: <%=link_to @event.url,@event.url%><%end%></li>
-                <li>Venue: <%= link_to @event.venue, map_conclave_event_path(@event), :popup => [@event.venue, 'width=600,height=400']
- %></li>
+                <li><%if @event.url%>Url: <%=link_to @event.url, @event.url%><%end%></li>
+                <li>Venue: <%= link_to @event.venue, @event.venue_link %></li>
             </ul>
         </div> 
     </div>            
@@ -29,6 +28,13 @@
       <%= render :partial => 'map', :locals => {:width => 400, :height => 300} %>
     </div>
     
+</div>
+
+<div>
+  <% for attendees in @event.attendees %>
+    <div><%= link_to icon_for_profile(attendees.profile, 'small'), profile_path(attendees.profile) %>
+    <%= link_to attendees.profile.full_name || attendees.login, profile_path(attendees.profile) %></div>
+  <% end %>
 </div>
 
 <% content_for :sidebar do %>
