@@ -18,14 +18,14 @@ class Event < ActiveRecord::Base
   
 #  before_create :set_default_icon
 
-  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/event"), :web_root => 'system/event/', :magick => {
-    :versions => {
-      :big    => {:crop => "1:1", :size => Tog::Config["plugins.tog_conclave.event.image.versions.big"], :size => "200x200",    :name => "big"},
-      :medium => {:crop => "1:1", :size => Tog::Config["plugins.tog_conclave.event.image.versions.medium"], :size => "150x150!", :name => "medium"},
-      :small  => {:crop => "1:1", :size => Tog::Config["plugins.tog_conclave.event.image.versions.small"], :size => "100x100!",  :name => "small"},
-      :tiny   => {:crop => "1:1", :size => Tog::Config["plugins.tog_conclave.event.image.versions.tiny"], :size => "50x50!",   :name => "tiny"}
-    }
-  }
+#  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/event"), :web_root => 'system/event/', :magick => {
+ #   :versions => {
+  #    :big    => {:crop => "1:1", :size => Tog::Config["plugins.tog_conclave.event.image.versions.big"], :size => "200x200",    :name => "big"},
+   #   :medium => {:crop => "1:1", :size => Tog::Config["plugins.tog_conclave.event.image.versions.medium"], :size => "150x150!", :name => "medium"},
+    #  :small  => {:crop => "1:1", :size => Tog::Config["plugins.tog_conclave.event.image.versions.small"], :size => "100x100!",  :name => "small"},
+     # :tiny   => {:crop => "1:1", :size => Tog::Config["plugins.tog_conclave.event.image.versions.tiny"], :size => "50x50!",   :name => "tiny"}
+#    }
+ # }
 
   
   def register(user)
