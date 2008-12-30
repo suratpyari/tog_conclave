@@ -1,7 +1,8 @@
 class Member::Conclave::EventsController < Member::BaseController
   
   def index
-    @events = current_user.events
+    @events = current_user.events.paginate :per_page => 100, :page => (params[:page] || '1')
+    render :template => "/conclave/events/index"
   end
     
   def register
