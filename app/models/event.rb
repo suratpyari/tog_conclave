@@ -16,6 +16,15 @@ class Event < ActiveRecord::Base
     errors.add("end_date", "is not valid") if self.end_date < self.start_date 
   end
   
+  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/event"), :web_root => 'system/event/', :magick => {
+              :versions => {
+                            :big => {:size => Tog::Config["plugins.tog_conclave.event.image.versions.big"], :name => "big"},
+                            :medium => {:size => Tog::Config["plugins.tog_conclave.event.image.versions.medium"], :name => "medium"},
+                            :small => {:size => Tog::Config["plugins.tog_conclave.event.image.versions.small"], :name => "small"},
+                            :tiny => {:size => Tog::Config["plugins.tog_conclave.event.image.versions.tiny"], :name => "tiny"}
+                          }
+                    }
+                    
   def register(user)
     att = Attendance.find(:first, :conditions => ["user_id = ? and event_id = ?", user.id, self.id])   
 
