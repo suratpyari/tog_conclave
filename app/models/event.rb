@@ -16,7 +16,7 @@ class Event < ActiveRecord::Base
     errors.add("end_date", "is not valid") if self.end_date < self.start_date 
   end
   
-  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/event"), :web_root => 'system/event/', :magick => {:versions => {:big => {:name => "big"}}}
+  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/event"), :web_root => 'system/event/', :magick => {:versions => {:size => "50x50", :big => {:name => "big"}}}
                     
   def register(user)
     att = Attendance.find(:first, :conditions => ["user_id = ? and event_id = ?", user.id, self.id])   
@@ -37,8 +37,8 @@ class Event < ActiveRecord::Base
   end
   
   def opening_time
-    result = "From #{self.start_date.strftime('%m/%d/%Y')} #{self.start_time.strftime('%H:%m')}" 
-    result << " to #{self.end_date.strftime('%m/%d/%Y')} #{self.end_time.strftime('%H:%m')}"
+    result = "From #{self.start_date.strftime('%d %b, %Y at %I:%M%p')}" 
+    result << " to #{self.end_date.strftime('%d %b, %Y at %I:%M%p')}"
     result
   end
   
