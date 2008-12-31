@@ -1,9 +1,9 @@
 class AddSomeDataInConfigTable < ActiveRecord::Migration
   def self.up
-    Tog::Config.create(:key => "plugins.tog_conclave.event.image.versions.big", :value => "145x100")
-    Tog::Config.create(:key => "plugins.tog_conclave.event.image.versions.medium", :value => "100x75")
-    Tog::Config.create(:key => "plugins.tog_conclave.event.image.versions.small", :value => "50x50")
-    Tog::Config.create(:key => "plugins.tog_conclave.event.image.versions.tiny", :value => "25x25")
+    Tog::Config.create(:key => "plugins.tog_conclave.event.image.versions.big", :value => "160x120")
+    Tog::Config.create(:key => "plugins.tog_conclave.event.image.versions.medium", :value => "120x90")
+    Tog::Config.create(:key => "plugins.tog_conclave.event.image.versions.small", :value => "60x45")
+    Tog::Config.create(:key => "plugins.tog_conclave.event.image.versions.tiny", :value => "30x30")
   end
 
   def self.down
