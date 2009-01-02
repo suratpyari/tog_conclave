@@ -54,8 +54,8 @@ class Event < ActiveRecord::Base
 
   def set_default_icon
     unless self.icon
-      default_event_icon = File.join(RAILS_ROOT, 'public', 'tog_conclave', 'images', 'default_event.png')
-      self.icon = File.new(default_event_icon)
+        default_event_icon = File.join(RAILS_ROOT, 'public', 'tog_conclave', 'images', 'default_event.png')
+        self.icon = File.new(default_event_icon)
     end
   end
   
