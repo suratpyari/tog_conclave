@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  
+  include FileColumn
   include GG
   acts_as_taggable
   seo_urls
@@ -15,8 +15,8 @@ class Event < ActiveRecord::Base
     errors.add("start_date", "is not valid") if self.start_date < Date.today
     errors.add("end_date", "is not valid") if self.end_date < self.start_date 
   end
-  
-  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/event"), :web_root => 'system/event/', :magick => {:versions => {:size => "50x50", :big => {:name => "big"}}}
+  before_create :set_default_icon
+  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/event"), :web_root => 'system/event/', :magick => {:versions => {:big => {:name => "big"}}}
                     
   def register(user)
     att = Attendance.find(:first, :conditions => ["user_id = ? and event_id = ?", user.id, self.id])   
@@ -49,7 +49,14 @@ class Event < ActiveRecord::Base
       return 0
     end
   end
-  
-  
+
+  def set_default_icon
+    unless self.icon
+      if Tog::Config["default_event.png"]
+        default_profile_icon = File.join(RAILS_ROOT, 'public', 'tog_conclave', 'images', Tog::Config["default_event.png"])
+        self.icon = File.new(default_profile_icon)
+      end
+    end
+  end
   
 end

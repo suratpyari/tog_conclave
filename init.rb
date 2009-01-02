@@ -3,6 +3,7 @@ require_plugin 'acts_as_taggable_on_steroids'
 require_plugin 'seo_urls'
 require_plugin 'ym4r_gm'
 require 'g_g'
+require 'validation_helper'
         
 Dir[File.dirname(__FILE__) + '/locale/**/*.yml'].each do |file|
 #  I18n.load_translations file
