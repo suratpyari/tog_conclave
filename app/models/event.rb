@@ -16,7 +16,7 @@ class Event < ActiveRecord::Base
     errors.add("end_date", "is not valid") if self.end_date < self.start_date 
   end
   
-  before_create :set_default_icon
+  before_save :set_default_icon
   
   file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/event"), :web_root => 'system/event/', :magick => {:versions => {:big => {:name => "big"}}}
                     
