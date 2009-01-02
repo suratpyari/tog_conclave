@@ -15,7 +15,9 @@ class Event < ActiveRecord::Base
     errors.add("start_date", "is not valid") if self.start_date < Date.today
     errors.add("end_date", "is not valid") if self.end_date < self.start_date 
   end
+  
   before_create :set_default_icon
+  
   file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/event"), :web_root => 'system/event/', :magick => {:versions => {:big => {:name => "big"}}}
                     
   def register(user)
@@ -52,10 +54,8 @@ class Event < ActiveRecord::Base
 
   def set_default_icon
     unless self.icon
-      if Tog::Config["default_event.png"]
-        default_profile_icon = File.join(RAILS_ROOT, 'public', 'tog_conclave', 'images', Tog::Config["default_event.png"])
-        self.icon = File.new(default_profile_icon)
-      end
+      default_event_icon = File.join(RAILS_ROOT, 'public', 'tog_conclave', 'images', 'default_event.png')
+      self.icon = File.new(default_event_icon)
     end
   end
   
