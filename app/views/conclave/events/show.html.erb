@@ -1,42 +1,49 @@
-<div class="detail detail1">
-    <div class="image"><%= icon_for_event(@event, 'big')%></div>
-    <div class="title"><%= @event.title -%></div>
-    <div class="subtitle">
-      <%= @event.opening_time %>
-    </div>
-    <div class="text">
-        <%= sanitize textilize(@event.description) %>
-    </div>
-    
-    <div class="portlet portletC">
-        <h2><span>More info</span></h2>
-        <div class="portlet_content">
-            <ul>
-                <li><%if @event.url%>Url: <%=link_to @event.url, @event.url%><%end%></li>
-                <li>Venue: <%= link_to @event.venue, @event.venue_link %></li>
-            </ul>
+<div class="leftColumn floatLeft">  
+  <div class="portlet portletC">
+    <div class="portlet_content">
+      <dl class="clear">
+        <dt class="floatLeft vspace">
+          <% if @event.icon %>
+            <%= icon_for_event(@event, 'big')%>
+          <% end %>
+        </dt>
+        <dd class="title floatRight vspace"><%= @event.title -%></dd>
+        <dd class="time floatRight"><%= @event.opening_time %></dd>
+      </dl>
+      <h2>More Info</h2>
+      <div class="yellowBox">
+        <div class="holder">
+          <ul class="infoHolder eventDetails">
+            <li><label>Description:</label><%= sanitize textilize(@event.description) %></li>
+            <li><%if @event.url%><label>Url:</label> <%=link_to @event.url, @event.url%><%end%></li>
+            <li><label>Venue:</label><%= link_to @event.venue, @event.venue_link %></li>
+          </ul>
+          <div id="register">
+            <% if current_user && current_user.registered?(@event) %>
+              <%= button_to "Unregister", member_conclave_unregister_path(@event) %>
+            <% else %>
+              <%= button_to "Register", member_conclave_register_path(@event) %>
+            <% end %>
+          </div>
         </div> 
-    </div>            
-    <div id="register">
-      <% if current_user && current_user.registered?(@event) %>
-        <%= button_to "Unregister", member_conclave_unregister_path(@event) %>
-      <% else %>
-        <%= button_to "Register", member_conclave_register_path(@event) %>
-      <% end %>
+      </div>            
     </div>
-    <div id="map">
-      <%= render :partial => 'map', :locals => {:width => 400, :height => 300} %>
-    </div>
-    
-</div>
-
-<div>
-  <% for attendees in @event.attendees %>
-    <div><%= link_to icon_for_profile(attendees.profile, 'small'), profile_path(attendees.profile) %>
-    <%= link_to attendees.profile.full_name || attendees.login, profile_path(attendees.profile) %></div>
-  <% end %>
+  </div>  
+  <div>
+    <% for attendees in @event.attendees %>
+      <div>
+        <%= link_to icon_for_profile(attendees.profile, 'small'), profile_path(attendees.profile) %>
+        <%= link_to attendees.profile.full_name || attendees.login, profile_path(attendees.profile) %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <% content_for :sidebar do %>
+  <h2>Event Calender</h2>
   <%= render :partial => 'calendar', :locals => {:year => @event.start_date.year, :month => @event.start_date.month} -%>
+  <div id="map" class="vspace"> 
+    <h2>Maps</h2>
+    <%= render :partial => 'map', :locals => {:width => 400, :height => 300} %>
+  </div>
 <% end -%>

@@ -1,30 +1,33 @@
-
-<div class="portlet portletB">
-    <h2><span><%= I18n.t("tog_conclave.site.upcoming") %></span></h2>
+<div class="floatLeft leftColumn">
+  <div class="portlet portletB">
+    <% if params[:controller] == "member/conclave/events"%>
+      <h2>Events</h2>
+    <% else -%>
+      <h2><%= I18n.t("tog_conclave.site.upcoming") %></h2>
+    <% end %>
     <div class="portlet_content">
-        <ul>
-          <%@events.each do |event|%>
-            <li class="clearfix">
-                <div class="image left"><%= icon_for_event(event, 'small')%></div>
-                <%= link_to event.title, conclave_event_path(event), :title => event.title %>
-                <br/> <%=event.opening_time %>
-            </li>
-          <%end%>
-        </ul>
+      <%@events.each do |event|%>
+        <dl class="clear">
+          <dt class="floatLeft  vspace">
+            <% if event.icon %>
+              <%= icon_for_event(event, 'big')%>
+            <% end %>
+          </dt>
+          <dd class="floatRight vspace  title"><%= link_to event.title, conclave_event_path(event), :title => event.title %></dd>
+          <dd class="floatRight time"><%=event.opening_time %></dd>
+        </dl>
+      <%end%>
     </div>    
-</div>
-<% if !@events.empty? %>
-  <div class="info_results">
-      <span class="info_items">
-        <%= page_entries_info @events %>
-      </span>
-      <span class="pages_navigation right">
-          <%= will_paginate @events %>
-      </span>
   </div>
-<%end%>
-       
+  <% if !@events.empty? %>
+    <div class="pages_navigation right">
+      <%= will_paginate @events %>
+    </div>
+  <%end%>
+</div>
 
-<% content_for :sidebar do %>
-  <%= render :partial => 'calendar', :locals => {:year => @year, :month => @month} -%>
+<% if params[:controller] != "member/conclave/events"%>
+  <% content_for :sidebar do %>
+    <%= render :partial => 'calendar', :locals => {:year => @year, :month => @month} -%>
+  <% end -%>
 <% end -%>
